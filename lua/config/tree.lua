@@ -16,7 +16,6 @@ require("nvim-tree").setup({
     mappings = {
       list = {
         { key = "u", action = "dir_up" },
-        {key = "l", action = "expand_all"},
         {key = "h", action = "collapse_all"}
       },
     },

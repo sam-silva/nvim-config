@@ -1,4 +1,5 @@
 local plugins = require('spider.plugins')
+local plugins = require('spider.set')
 
 local M = {}
 function M.setup()

@@ -2,94 +2,53 @@ vim.cmd [[packadd packer.nvim]]
 local M = {}
 
 function M.plugins(use)
-  use ("wbthomason/packer.nvim")
-  -- theme
-  use ("folke/tokyonight.nvim")
+   -- Packer can manage itself
+   use 'wbthomason/packer.nvim'
 
-  -- telescope
-  use {
-    'nvim-telescope/telescope.nvim', 
-    tag = '0.1.0',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
-
-  -- tree
-  use {
-    'nvim-tree/nvim-tree.lua',
-    requires = {
-      'nvim-tree/nvim-web-devicons', -- optional, for file icons
-    },
-    tag = 'nightly', -- optional, updated every week. (see issue #1193)
-    config = function() 
-      require("config.tree").setup()
-    end
-  }
-
-   -- Treesitter
    use {
-    "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
-    config = function()
-        require("config.treesitter").setup()
-    end,
- }
-
-  -- Copilot
-  use 'github/copilot.vim'
-
-
-   -- Better icons
-  use {
-    "kyazdani42/nvim-web-devicons",
-    module = "nvim-web-devicons",
-    config = function()
-        require("nvim-web-devicons").setup { default = true }
-    end,
-  }
-
-  --indent
-  use {
-    "lukas-reineke/indent-blankline.nvim",
-    config = function()
-      require('config.indent').setup()
-    end
-  }
-
-    -- Better Comment
-    use {
-      "numToStr/Comment.nvim",
-      keys = { "gc", "gcc", "gbc" },
-      config = function()
-          require("Comment").setup {}
-      end,
-  }
-
-  use {
-    "SmiteshP/nvim-gps",
-    requires = "nvim-treesitter/nvim-treesitter",
-    module = "nvim-gps",
-    config = function()
-        require("nvim-gps").setup()
-    end,
-  }
-
-   -- Status line
+     'nvim-telescope/telescope.nvim', tag = '0.1.0',
+     -- or                            , branch = '0.1.x',
+     requires = { {'nvim-lua/plenary.nvim'} }
+   }
+ 
+   use({
+     'rose-pine/neovim',
+     as = 'rose-pine',
+     config = function()
+       vim.cmd('colorscheme rose-pine')
+     end
+   })
+ 
+   use({'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'})
+   use('nvim-treesitter/playground')
+   use('theprimeagen/harpoon')
+   use('mbbill/undotree')
+   use('tpope/vim-fugitive')
+ 
    use {
-    "nvim-lualine/lualine.nvim",
-    event = "VimEnter",
-    config = function()
-        require("config.statusline").setup()
-    end,
-    requires = { "nvim-web-devicons" },
-  }
-
-  use {
-    'neoclide/coc.nvim',
-    branch = 'release',
-    config = function()
-        require("config.coc").setup()
-    end
-  }
+     'VonHeikemen/lsp-zero.nvim',
+     requires = {
+       -- LSP Support
+       {'neovim/nvim-lspconfig'},
+       {'williamboman/mason.nvim'},
+       {'williamboman/mason-lspconfig.nvim'},
+ 
+       -- Autocompletion
+       {'hrsh7th/nvim-cmp'},
+       {'hrsh7th/cmp-buffer'},
+       {'hrsh7th/cmp-path'},
+       {'saadparwaiz1/cmp_luasnip'},
+       {'hrsh7th/cmp-nvim-lsp'},
+       {'hrsh7th/cmp-nvim-lua'},
+ 
+       -- Snippets
+       {'L3MON4D3/LuaSnip'},
+       {'rafamadriz/friendly-snippets'},
+     }
+   }
+ 
+   use("folke/zen-mode.nvim")
+   use("github/copilot.vim")
   
 end
 
